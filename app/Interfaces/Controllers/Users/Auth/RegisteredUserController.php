@@ -2,21 +2,23 @@
 
 namespace App\Interfaces\Controllers\Users\Auth;
 
+use App\Domains\Users\Enums\AuthStatics;
+use App\Domains\Users\Models\User;
 use App\Interfaces\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Validation\ValidationException;
 
 class RegisteredUserController extends Controller
 {
     /**
      * Handle an incoming registration request.
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function store(Request $request): Response
     {
@@ -35,7 +37,8 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
+        $token = $request->user()->createToken(AuthStatics::ADMIN_TOKEN->value);
 
-        return response()->noContent();
+        return response(['token' => $token->plainTextToken]);
     }
 }
