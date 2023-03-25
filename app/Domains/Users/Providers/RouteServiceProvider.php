@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace App\Domains\Users\Providers;
 
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -27,12 +27,20 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
-            Route::middleware('api')
-                ->prefix('api')
-                ->group(base_path('routes/api.php'));
-
             Route::middleware('web')
-                ->group(base_path('routes/web.php'));
+                ->prefix('users')
+                ->as('users.')
+                ->group(base_path('routes/users/web.php'));
+
+            Route::middleware('api')
+                ->prefix('users/api/v1')
+                ->as('users.api.v1.')
+                ->group(base_path('routes/users/api.php'));
+
+            Route::middleware('api')
+                ->prefix('users/channels/v1')
+                ->as('users.channels.v1.')
+                ->group(base_path('routes/users/channels.php'));
         });
     }
 
