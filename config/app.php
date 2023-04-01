@@ -196,11 +196,13 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
 
         /*
          * Domains
          */
-        \App\Domains\Users\Providers\RouteServiceProvider::class
+        \App\Domains\Users\Providers\RouteServiceProvider::class,
+        \App\Domains\Blog\Providers\RouteServiceProvider::class,
 
     ],
 

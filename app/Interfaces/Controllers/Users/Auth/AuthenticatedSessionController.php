@@ -23,10 +23,11 @@ class AuthenticatedSessionController extends Controller
         if(!$request->wantsJson()){
             $request->session()->regenerate();
         }
+        $user = $request->user();
 
-        $token = $request->user()->createToken(AuthStatics::ADMIN_TOKEN->value);
+        $token = $user->createToken(AuthStatics::ADMIN_TOKEN->value);
 
-        return response(['token' => $token->plainTextToken]);
+        return response(['token' => $token->plainTextToken, 'user_id' => $user->id, 'user_name' => $user->name]);
     }
 
     /**
