@@ -29,6 +29,7 @@ return new class extends Migration
             $table->string('image_medium')->nullable();
             $table->string('image_thumbnail')->nullable();
             $table->foreignIdFor(User::class, 'created_by');
+            $table->dateTime('deleted_at');
             $table->timestamps();
         });
     }

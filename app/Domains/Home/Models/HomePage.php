@@ -5,6 +5,7 @@ namespace App\Domains\Home\Models;
 use App\Domains\Home\Providers\EventServiceProvider;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
@@ -26,7 +27,7 @@ use Illuminate\Support\Carbon;
  */
 class HomePage extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'key',
